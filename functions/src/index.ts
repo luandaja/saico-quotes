@@ -4,7 +4,10 @@ import * as cors from 'cors';
 // const serviceAccount = require('../credentials.json');
 admin.initializeApp();
 
-const whitelist = ['http://localhost:4200'];
+const whitelist = [
+  'http://localhost:4200',
+  'https://saico-quotes.firebaseapp.com'
+];
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -24,7 +27,8 @@ export const getRandomQuote = functions.https.onRequest((request, response) => {
       const quotes = (await db.doc('general-info/quotes').get()).data().quotes;
       const quoteId = quotes[getRandomInt(1, quotes.length + 1)];
       const quote = await db.doc(`quotes/${quoteId}`).get();
-      return response.json(quote.data());
+      const quoteRespose = { ...quote.data(), id: quoteId };
+      return response.json(quoteRespose);
     } catch (err) {
       return response.send(err);
     }

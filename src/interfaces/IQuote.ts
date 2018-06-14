@@ -3,4 +3,5 @@
 export interface IQuote {
   published_date: string;
   message: string;
+  id: string;
 }

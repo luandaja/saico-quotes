@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuotePageComponent } from './quote-page/quote-page.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule(
   {
@@ -15,7 +17,8 @@ import { QuotePageComponent } from './quote-page/quote-page.component';
     imports: [
       FlexLayoutModule,
       BrowserModule,
-      HttpClientModule
+      HttpClientModule,
+      ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [],
     bootstrap: [
